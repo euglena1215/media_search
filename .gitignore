@@ -1,2 +1,3 @@
 .bundle
 vendor/
+media_search.sqlite3

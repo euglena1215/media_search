@@ -9,5 +9,6 @@ set :database, adapter: "sqlite3", database: "media_search.sqlite3"
 require "./models/image.rb"
 
 get "/" do
-  "Hello World"
+  images = Image.all
+  erb :index, locals: { images: images } 
 end
