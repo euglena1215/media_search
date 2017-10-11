@@ -1,0 +1,9 @@
+<h1>Result</h1>
+
+<% images.each do |image| %>
+  <ul>
+    <li>Title = <%= image.title %></li>
+    <li>Author = <%= image.title %></li>
+    <li>URL = <a href="<%= image.url %>"><%= image.url %></a></li>
+  </ul>
+<% end %>

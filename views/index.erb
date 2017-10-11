@@ -10,11 +10,14 @@
 <h1 align="center">メディア情報検索の基礎　課題1-1</h1>
 <hr align="center" noshade width="80%"/>
 <div align="center">
-  <form method="post" action="./sample.cgi">
-    <input type="text" name="KEYWORD" size="15"/>
+  <form method="post" action="/search">
+    <input type="text" name="keyword" size="15"/>
     <input type="submit" value="submit"/>
   </form>
 </div>
+
+
+<%= erb :result, locals: { images: results } if defined?(results) %>
 
 <hr align="center" noshade width="80%"/>
 
@@ -29,7 +32,7 @@
   </tr>
   <% images.each do |image| %>
   <tr>
-    <td><a href="<%= image.url %>">Image1</a></td>
+    <td><a href="<%= image.url %>">Image<%= image.id %></a></td>
     <td><%= image.title %></td>
     <td><%= image.author %></td>
   </tr>

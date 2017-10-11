@@ -10,5 +10,21 @@ require "./models/image.rb"
 
 get "/" do
   images = Image.all
-  erb :index, locals: { images: images } 
+  erb :index, locals: { images: images }
+end
+
+post "/search" do
+  keyword = params[:keyword]
+
+  results = Image.where(<<~"QUERY"
+      (id LIKE "%#{keyword}%")
+      OR (title LIKE "%#{keyword}%")
+      OR (author LIKE "%#{keyword}%")
+      OR (url LIKE "%#{keyword}%")
+    QUERY
+  )
+
+  images = Image.all
+
+  erb :index, locals: { images: images, results: results }
 end
