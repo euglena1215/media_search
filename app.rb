@@ -43,6 +43,20 @@ module MediaSearch
     end
 
     post "/create" do
+      form do
+        filters :strip
+        field :title,   :present => true
+        field :author, :present => true
+        field :url, :present => true
+      end
+      if form.failed?
+        output = erb :new
+        fill_in_form(output)
+      else
+        Image.create(title: form[:title], author: form[:author], url: form[:url])
+
+        redirect '/'
+      end
     end
   end
 end
