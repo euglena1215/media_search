@@ -10,7 +10,7 @@ require "./models/image.rb"
 
 get "/" do
   images = Image.all
-  erb :index, locals: { images: images }
+  erb :index, layout: :layout, locals: { images: images }
 end
 
 post "/search" do
@@ -29,5 +29,5 @@ post "/search" do
 
   images = Image.all
 
-  erb :index, locals: { images: images, results: results }
+  erb :index, layout: :layout, locals: { images: images, results: results }
 end

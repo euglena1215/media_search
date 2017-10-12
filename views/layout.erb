@@ -1,0 +1,26 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="JA">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=ISO-2022-JP"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script language="javascript" type="text/javascript">
+    function DisplayAll() {
+      document.getElementById("all_form").style.display = "inline";
+      document.getElementById("partial_form").style.display = "none";
+    }
+
+    function DisplayPartial() {
+      document.getElementById("partial_form").style.display = "inline";
+      document.getElementById("all_form").style.display = "none";
+      document.getElementById("all").value = "";
+    }
+  </script>
+  <title>メディア情報検索の基礎 課題1-1 sample</title>
+</head>
+
+<body class="container">
+<%= yield %>
+</body>
+
+</html>
