@@ -14,15 +14,18 @@ get "/" do
 end
 
 post "/search" do
-  keyword = params[:keyword]
+  results = if params[:all].empty?
+              id = params[:id]
+              title = params[:title]
+              author = params[:author]
+              url = params[:url]
+              mode = params[:mode]
 
-  results = Image.where(<<~"QUERY"
-      (id LIKE "%#{keyword}%")
-      OR (title LIKE "%#{keyword}%")
-      OR (author LIKE "%#{keyword}%")
-      OR (url LIKE "%#{keyword}%")
-    QUERY
-  )
+              Image.partial_search(id: id, title: title, author: author, url: url, mode: mode)
+            else
+              keyword = params[:all]
+              Image.all_search(keyword)
+            end
 
   images = Image.all
 

@@ -2,6 +2,18 @@
 <html lang="JA">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=ISO-2022-JP"/>
+  <script language="javascript" type="text/javascript">
+    function DisplayAll() {
+      document.getElementById("all_form").style.display = "inline";
+      document.getElementById("partial_form").style.display = "none";
+    }
+
+    function DisplayPartial() {
+      document.getElementById("partial_form").style.display = "inline";
+      document.getElementById("all_form").style.display = "none";
+      document.getElementById("all").value = "";
+    }
+  </script>
   <title>メディア情報検索の基礎 課題1-1 sample</title>
 </head>
 
@@ -11,11 +23,24 @@
 <hr align="center" noshade width="80%"/>
 <div align="center">
   <form method="post" action="/search">
-    <input type="text" name="keyword" size="15"/>
-    <input type="submit" value="submit"/>
+    <div id="all_form">
+      <input type="text" name="all" id="all" size="15" placeholder="全体" /> 
+    </div>
+    <div id="partial_form" style="display: none;">
+      <input type="text" name="id" id="id" size="15" placeholder="id" /><br>
+      <input type="text" name="title" id="title" size="15" placeholder="タイトル" /><br>
+      <input type="text" name="author" id="author" size="15" placeholder="著者" /><br>
+      <input type="text" name="url" id="url" size="15" placeholder="URL" /><br>
+      <input type="radio" name="mode" value="or" checked>OR
+      <input type="radio" name="mode" value="and">AND
+    </div>
+    <br>
+    <input type="button" value="全体" onclick="DisplayAll();">
+    <input type="button" value="部分" onclick="DisplayPartial();">
+    <br>
+    <input type="submit" value="検索"/>
   </form>
 </div>
-
 
 <%= erb :result, locals: { images: results } if defined?(results) %>
 

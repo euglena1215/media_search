@@ -14,3 +14,5 @@ gem "sqlite3", require: false
 group :development do
   gem "onkcop", require: false
 end
+
+gem "pry-byebug"
