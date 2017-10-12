@@ -9,6 +9,7 @@ ruby "2.4.1"
 gem "sinatra"
 gem "sinatra-activerecord"
 gem "sinatra-contrib"
+gem 'sinatra-formkeeper'
 gem "sqlite3", require: false
 
 group :development do

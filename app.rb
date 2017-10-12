@@ -3,31 +3,46 @@ require "bundler"
 
 Bundler.require
 
+require "sinatra/reloader"
+
 set :database, adapter: "sqlite3", database: "media_search.sqlite3"
 
 # modelの読み込み
 require "./models/image.rb"
 
-get "/" do
-  images = Image.all
-  erb :index, layout: :layout, locals: { images: images }
-end
+module MediaSearch
+  class App < Sinatra::Base
+    register Sinatra::FormKeeper
 
-post "/search" do
-  results = if params[:all].empty?
-              id = params[:id]
-              title = params[:title]
-              author = params[:author]
-              url = params[:url]
-              mode = params[:mode]
+    get "/" do
+      images = Image.all
+      erb :index, layout: :layout, locals: { images: images }
+    end
 
-              Image.partial_search(id: id, title: title, author: author, url: url, mode: mode)
-            else
-              keyword = params[:all]
-              Image.all_search(keyword)
-            end
+    get "/new" do
+      erb :new
+    end
 
-  images = Image.all
+    post "/search" do
+      results = if params[:all].empty?
+                  id = params[:id]
+                  title = params[:title]
+                  author = params[:author]
+                  url = params[:url]
+                  mode = params[:mode]
 
-  erb :index, layout: :layout, locals: { images: images, results: results }
+                  Image.partial_search(id: id, title: title, author: author, url: url, mode: mode)
+                else
+                  keyword = params[:all]
+                  Image.all_search(keyword)
+                end
+
+      images = Image.all
+
+      erb :index, layout: :layout, locals: { images: images, results: results }
+    end
+
+    post "/create" do
+    end
+  end
 end
