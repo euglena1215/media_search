@@ -1,16 +1,16 @@
 class Image < ActiveRecord::Base
   class << self
-  	def all_search(keyword)
-	   where(<<~"QUERY"
+    def all_search(keyword)
+      where(<<~"QUERY"
         (id LIKE "%#{keyword}%")
         OR (title LIKE "%#{keyword}%")
         OR (author LIKE "%#{keyword}%")
         OR (url LIKE "%#{keyword}%")
       QUERY
-      )
-  	end
+           )
+    end
 
-  	def partial_search(id:, title:, author:, url:, mode:)
+    def partial_search(id:, title:, author:, url:, mode:)
       query = []
       query << "(id LIKE \"%#{id}%\")" if id.present?
       query << "(title LIKE \"%#{title}%\")" if title.present?
@@ -27,6 +27,6 @@ class Image < ActiveRecord::Base
                   end
 
       where(query_str)
-  	end
+    end
   end
 end
