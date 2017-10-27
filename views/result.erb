@@ -1,9 +1,9 @@
-<h1>Result</h1>
+<h1>類似度でソート</h1>
 
 <% images.each do |image| %>
   <ul>
     <li>Title = <%= image.title %></li>
-    <li>Author = <%= image.title %></li>
-    <li>URL = <a href="<%= image.url %>"><%= image.url %></a></li>
+    <li>Author = <%= image.author %></li>
+    <li><img src="<%= image.url %>" height="100" alt="<%= image.title %>"></li>
   </ul>
 <% end %>

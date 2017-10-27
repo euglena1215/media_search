@@ -28,5 +28,25 @@ class Image < ActiveRecord::Base
 
       where(query_str)
     end
+
+    def sort_by_similar_rgb(id)
+      image = Image.select('red, green, blue').find(id)
+
+      sql = ActiveRecord::Base.send(
+              :sanitize_sql_array,
+              [
+                'SELECT * FROM images WHERE id != :id ORDER BY (red * :red + blue * :blue + green * :green) DESC',
+                id: id,
+                red: image.red, 
+                blue: image.blue, 
+                green: image.green 
+              ]
+            )
+
+      con = ActiveRecord::Base.connection
+      result = con.select_all(sql).to_hash
+
+      result.map { |r| Image.new(r) }
+    end
   end
 end

@@ -1,7 +1,14 @@
 <div class="text-center row">
+  <form action="/search" method="get">
   <% images.each do |image| %>
-    <img src="<%= image.url %>" width="<%= 100 / (images.size+1) %>%" alt="<%= image.title %>">
+    <label class="radio-inline">
+      <input type="radio" name="image" value="<%= image.id %>">
+      <img src="<%= image.url %>" height="200" alt="<%= image.title %>">
+    </label>
   <% end %>
+  <br>
+  <button type="submit" class="btn btn-default">類似画像を検索</button>
+  </form>
 </div>
 
 <%= erb :result, locals: { images: results } if defined?(results) %>

@@ -23,20 +23,9 @@ module MediaSearch
       erb :new
     end
 
-    post "/search" do
-      results = if params[:all].empty?
-                  id = params[:id]
-                  title = params[:title]
-                  author = params[:author]
-                  url = params[:url]
-                  mode = params[:mode]
-
-                  Image.partial_search(id: id, title: title, author: author, url: url, mode: mode)
-                else
-                  keyword = params[:all]
-                  Image.all_search(keyword)
-                end
-
+    get "/search" do
+      id = params[:image].to_i
+      results = Image.sort_by_similar_rgb(id)
       images = Image.all
 
       erb :index, layout: :layout, locals: { images: images, results: results }
