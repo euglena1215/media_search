@@ -30,7 +30,7 @@ class Image < ActiveRecord::Base
     end
 
     def sort_by_similar_rgb(id)
-      image = Image.select('red, green, blue').find(id)
+      image = self.select('red, green, blue').find(id)
 
       sql = ActiveRecord::Base.send(
               :sanitize_sql_array,
@@ -46,7 +46,7 @@ class Image < ActiveRecord::Base
       con = ActiveRecord::Base.connection
       result = con.select_all(sql).to_hash
 
-      result.map { |r| Image.new(r) }
+      result.map { |r| self.new(r) }
     end
   end
 end
