@@ -9,6 +9,7 @@ set :database, adapter: "sqlite3", database: "media_search.sqlite3"
 
 # modelの読み込み
 require "./models/image.rb"
+require "./services/extract_rgb.rb"
 
 module MediaSearch
   class App < Sinatra::Base
@@ -42,7 +43,9 @@ module MediaSearch
         output = erb :new
         fill_in_form(output)
       else
-        Image.create(title: form[:title], author: form[:author], url: form[:url])
+        red, green, blue = ExtractRgb.extract(form[:title], form[:url]).map { |i| i / 256.0 }
+
+        Image.create(title: form[:title], author: form[:author], url: form[:url], red: red, green: green, blue: blue)
 
         redirect '/'
       end

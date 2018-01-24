@@ -23,12 +23,18 @@
     <th>ID</th>
     <th>title</th>
     <th>author</th>
+    <th>red</th>
+    <th>green</th>
+    <th>blue</th>
   </tr>
   <% images.each do |image| %>
   <tr>
     <td><a href="<%= image.url %>">Image<%= image.id %></a></td>
     <td><%= image.title %></td>
     <td><%= image.author %></td>
+    <td><%= image.red %></td>
+    <td><%= image.green %></td>
+    <td><%= image.blue %></td>
   </tr>
   <% end %>
 </table>
