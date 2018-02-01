@@ -16,6 +16,7 @@ class ExtractRgb
       filepath = export_image(filename, url)
 
       colors = ImageList.new(filepath)[0].export_pixels.map { |pix| pix/257 }.each_slice(3).to_a
+      File.delete(filepath) if File.exist?(filepath)
       colors.transpose.map { |color| color.sum / color.size }
     end
 
