@@ -9,7 +9,7 @@ set :database, adapter: "sqlite3", database: "media_search.sqlite3"
 
 # modelの読み込み
 require "./models/image.rb"
-require "./services/extract_rgb.rb"
+require "./services/label.rb"
 
 module MediaSearch
   class App < Sinatra::Base
@@ -32,6 +32,12 @@ module MediaSearch
       erb :index, layout: :layout, locals: { images: images, results: results }
     end
 
+    get "/search_keyword" do
+      results = Image.search_label(params[:keyword])
+
+      erb :index, layout: :layout, locals: { images: Image.all, results: results }
+    end
+
     post "/create" do
       form do
         filters :strip
@@ -43,9 +49,9 @@ module MediaSearch
         output = erb :new
         fill_in_form(output)
       else
-        red, green, blue = ExtractRgb.extract(form[:title], form[:url]).map { |i| i / 256.0 }
+        labels = Label.detect_labels(form[:url]).join("/")
 
-        Image.create(title: form[:title], author: form[:author], url: form[:url], red: red, green: green, blue: blue)
+        Image.create(title: form[:title], author: form[:author], url: form[:url], labels: labels)
 
         redirect '/'
       end

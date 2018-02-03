@@ -48,5 +48,9 @@ class Image < ActiveRecord::Base
 
       result.map { |r| self.new(r) }
     end
+
+    def search_label(keyword)
+      where("labels like ?", "%#{keyword}%")
+    end
   end
 end
