@@ -33,7 +33,7 @@ module MediaSearch
     end
 
     get "/search_keyword" do
-      results = Image.search_label(params[:keyword])
+      results = Image.sort_by_keyword(params[:keyword])
 
       erb :index, layout: :layout, locals: { images: Image.all, results: results }
     end
@@ -49,9 +49,9 @@ module MediaSearch
         output = erb :new
         fill_in_form(output)
       else
-        labels = Label.detect_labels(form[:url]).join("/")
+        labels, scores = Label.detect_labels(form[:url])
 
-        Image.create(title: form[:title], author: form[:author], url: form[:url], labels: labels)
+        Image.create(title: form[:title], author: form[:author], url: form[:url], labels: labels.join("/"), scores: scores.join("/"))
 
         redirect '/'
       end

@@ -49,8 +49,13 @@ class Image < ActiveRecord::Base
       result.map { |r| self.new(r) }
     end
 
-    def search_label(keyword)
-      where("labels like ?", "%#{keyword}%")
+    def sort_by_keyword(keyword)
+      images = where("labels like ?", "%#{keyword}%")
+
+      images.sort_by do |image|
+        index = image.labels.split('/').index(keyword)
+        image.scores.split('/')[index].to_f
+      end.reverse
     end
   end
 end

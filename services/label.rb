@@ -20,7 +20,9 @@ class Label
   				image: { bytes: OpenURI.open_uri(url) }
 			)
 
-			response_detect_labels.map(&:labels)[0].map(&:name)
+			labels = response_detect_labels.map(&:labels)[0]
+
+			[labels.map(&:name), labels.map(&:confidence)]
 		end
 	end
 end

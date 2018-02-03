@@ -5,7 +5,8 @@ CREATE TABLE images (
   title varchar(50),
   author varchar(50),
   url text,
-  labels text
+  labels text,
+  scores text
 );
 
 DELETE FROM images;
