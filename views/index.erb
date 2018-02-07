@@ -1,11 +1,11 @@
 <div class="text-center row">
-  <form action="/search_keyword" method="get">
+  <form action="/search" method="get">
   <input type="text" name="keyword">
   <button type="submit" class="btn btn-default">キーワード検索</button>
   </form>
 </div>
 
-<%= erb :result, locals: { images: results } if defined?(results) %>
+<%= erb :result, locals: { documents: results } if defined?(results) %>
 
 <hr class="text-center"/>
 
@@ -16,22 +16,19 @@
   <tr>
     <th>ID</th>
     <th>title</th>
-    <th>author</th>
-    <th>labels</th>
-    <th>scores</th>
+    <th>content</th>
+    <th>Page rank</th>
   </tr>
-  <% images.each do |image| %>
+  <% documents.each do |doc| %>
   <tr>
-    <td><a href="<%= image.url %>">Image<%= image.id %></a></td>
-    <td><%= image.title %></td>
-    <td><%= image.author %></td>
-    <td><%= image.labels %></td>
-    <td><%= image.scores %></td>
+    <td><%= doc.id %></td>
+    <td><%= doc.title %></td>
+    <td><%= doc.content[0..30] + '...' %></td>
+    <td><%= doc.page_rank %></td>
   </tr>
   <% end %>
 </table>
 
-<a class="btn btn-primary" href="/new">登録</a>
 <hr align="center" noshade width="80%"/>
 
 <div align="center">
