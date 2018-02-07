@@ -1,9 +1,9 @@
-<h1>Result</h1>
+<h1>検索結果</h1>
 
-<% images.each do |image| %>
+<% documents.each do |doc| %>
   <ul>
-    <li>Title = <%= image.title %></li>
-    <li>Author = <%= image.title %></li>
-    <li>URL = <a href="<%= image.url %>"><%= image.url %></a></li>
+    <li>Title = <%= doc.title %></li>
+    <li>Content = <%= doc.content[0..20] + '...' %></li>
+    <li>PageRank = <%= doc.page_rank %></li>
   </ul>
 <% end %>

@@ -1,39 +1,11 @@
 <div class="text-center row">
-  <form method="post" action="/search">
-    <div id="all_form">
-      <div class="form-group">
-        <input type="text" class="form-control" name="all" id="all" size="15" placeholder="全体" /> 
-      </div>
-    </div>
-    <div id="partial_form" style="display: none;">
-      <div class="form-group">
-        <input type="text" class="form-control" name="id" id="id" size="15" placeholder="id" />
-      </div>
-      <div class="form-group">
-        <input type="text" class="form-control" name="title" id="title" size="15" placeholder="タイトル" />
-      </div>
-      <div class="form-group">
-        <input type="text" class="form-control" name="author" id="author" size="15" placeholder="著者" />
-      </div>
-      <div class="form-group">
-        <input type="text" class="form-control" name="url" id="url" size="15" placeholder="URL" />
-      </div>
-      <label class="radio-inline">
-        <input type="radio" name="mode" value="or" checked>OR
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="mode" value="and">AND
-      </label>
-    </div>
-    <br>
-    <input type="button" class="btn btn-default" value="全体" onclick="DisplayAll();">
-    <input type="button" class="btn btn-default" value="部分" onclick="DisplayPartial();">
-    <br>
-    <input type="submit" class="btn btn-primary" value="検索"/>
+  <form action="/search" method="get">
+  <input type="text" name="keyword">
+  <button type="submit" class="btn btn-default">キーワード検索</button>
   </form>
 </div>
 
-<%= erb :result, locals: { images: results } if defined?(results) %>
+<%= erb :result, locals: { documents: results } if defined?(results) %>
 
 <hr class="text-center"/>
 
@@ -44,18 +16,19 @@
   <tr>
     <th>ID</th>
     <th>title</th>
-    <th>author</th>
+    <th>content</th>
+    <th>Page rank</th>
   </tr>
-  <% images.each do |image| %>
+  <% documents.each do |doc| %>
   <tr>
-    <td><a href="<%= image.url %>">Image<%= image.id %></a></td>
-    <td><%= image.title %></td>
-    <td><%= image.author %></td>
+    <td><%= doc.id %></td>
+    <td><%= doc.title %></td>
+    <td><%= doc.content[0..30] + '...' %></td>
+    <td><%= doc.page_rank %></td>
   </tr>
   <% end %>
 </table>
 
-<a class="btn btn-primary" href="/new">登録</a>
 <hr align="center" noshade width="80%"/>
 
 <div align="center">
