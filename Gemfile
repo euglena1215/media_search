@@ -19,3 +19,5 @@ end
 gem "pry-byebug"
 
 gem "rmagick"
+gem "aws-sdk"
+gem "dotenv"

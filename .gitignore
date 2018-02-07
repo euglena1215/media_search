@@ -2,3 +2,4 @@
 vendor/
 tmp/
 media_search.sqlite3
+.env
